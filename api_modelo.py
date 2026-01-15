@@ -20,7 +20,7 @@ JWT_EXP_DELTA_SECONDS = 3600
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger("api_modelo")
 
-DB_URI = 'sqlite:///predictions.db'
+DB_URI = os.environ.get("DB_URI")
 engine = create_engine(DB_URI, echo=False)
 Base = declarative_base()
 SessionLocal = sessionmaker(bind=engine)
@@ -37,7 +37,7 @@ class Prediction(Base):
 
 Base.metadata.create_all(engine)
 
-ml_model = joblib.load('modelo_iris.pkl')
+ml_model = joblib.load(os.path.join(os.path.dirname(__file__), 'modelo_iris.pkl'))
 logger.info("Modelo carregado com sucesso.")
 
 
@@ -141,5 +141,6 @@ def list_predictions():
         })
     return jsonify(results)
 
-if __name__ == '__main__':
-    app.run(debug=True)
+##if __name__ == '__main__':
+  ##  app.run(debug=True)
+  ## remover por causa do vercel
