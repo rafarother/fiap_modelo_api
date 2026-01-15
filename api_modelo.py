@@ -62,6 +62,11 @@ def token_required(f):
         return f(*args, **kwargs)
     return decorated
 
+
+@app.route("/")
+def home():
+    return "API Flask funcionando no Vercel!"
+
 @app.route('/login', methods=['POST'])
 def login():
     data = request.get_json(force=True)
