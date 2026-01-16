@@ -17,7 +17,10 @@ from sqlalchemy.exc import SQLAlchemyError
 # CONFIGURAÇÕES
 # ======================
 
-JWT_SECRET = os.environ["JWT_SECRET"]
+JWT_SECRET = os.environ.get("JWT_SECRET")
+
+if not JWT_SECRET:
+    raise RuntimeError("JWT_SECRET não definido no ambiente")
 JWT_ALGORITHM = "HS256"
 JWT_EXP_DELTA_SECONDS = 3600
 
